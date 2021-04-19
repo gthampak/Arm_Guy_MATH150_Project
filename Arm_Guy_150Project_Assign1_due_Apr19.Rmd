@@ -31,6 +31,8 @@ b. Guy Thampakkul
 
 **2. Explnatory Data Analysis and Visuals**
 
+Reference Data Set: https://onlinelibrary.wiley.com/doi/abs/10.1046/j.1360-0443.2003.00328.x?sid=nlm%3Apubmed
+
 ```{r}
 urlfile="https://raw.githubusercontent.com/gthampak/Arm_Guy_MATH150_Project/main/HELPdata.csv"
 
@@ -63,11 +65,13 @@ table(HELPdata$abuse)
 
 **3. Something New Outline **
 
-Topics:
+Topics (and possible sources):
 
 - Investigation of the proportional hazards assumption (what does the R functioncox.zphdo?)
 
 - Exponential or Weibull PH regression (parametric survival model)
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5233524/
 
 - Deriving / detailing AIC & BIC for model selection on Cox PH
 
@@ -76,6 +80,8 @@ Topics:
 - Derivation of the sample size calculation for the log rank test (and application to the data)
 
 - An analysis of the Schoenfeld residuals (how are they calculated and why is that calculation relevant?)
+
+https://towardsdatascience.com/schoenfeld-residuals-the-idea-that-turned-regression-modeling-on-its-head-b1f1fd293f87
 
 - Bootstrapping the survival model (what are the assumptions?  what do you conclude?)
 
@@ -88,6 +94,10 @@ https://cran.r-project.org/web/packages/survival/vignettes/timedep.pdf
 - Andersen-Gill extension of the Cox PH model for time-varying covariates (available in rms R package).
 
 - Another topic related to survival analysis that you find interesting.
+
+- Misc
+
+Variable selection techniques for the Cox proportional hazards model: A comparative study: https://core.ac.uk/download/pdf/152600668.pdf
 
 
 Arm - 
