@@ -69,11 +69,19 @@ Topics (and possible sources):
 
 - Investigation of the proportional hazards assumption (what does the R function *cox.zph* do?)
 
+http://www.sthda.com/english/wiki/cox-model-assumptions
+
 https://www.rdocumentation.org/packages/survival/versions/3.2-7/topics/cox.zph
+
+https://bookdown.org/sestelo/sa_financial/how-to-evaluate-the-ph-assumption.html
 
 - Exponential or Weibull PH regression (parametric survival model)
 
+https://core.ac.uk/download/pdf/5172563.pdf
+
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5233524/
+
+Weibull regression provides estimate of baseline hazard function in addition to coefficients for covariates. It is seldom used (as compared to semi-parametric proportional hazard model) because of its techinical difficulties.
 
 - Deriving / detailing AIC & BIC for model selection on Cox PH
 
@@ -82,6 +90,8 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2344147/
 - Power analysis (a simulation?)
 
 - Derivation of the sample size calculation for the log rank test (and application to the data)
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2692036/
 
 - An analysis of the Schoenfeld residuals (how are they calculated and why is that calculation relevant?)
 
@@ -110,9 +120,15 @@ https://projecteuclid.org/journals/annals-of-statistics/volume-10/issue-4/Coxs-R
 Variable selection techniques for the Cox proportional hazards model: A comparative study: https://core.ac.uk/download/pdf/152600668.pdf
 
 
-Arm - 
+**Arm** - 
 
-Guy - 
+**Guy** - New Topic(s): Investigation of the proportional hazards assumption
+
+The function cox.zph() tests the proportional hazards assumption for each covariate included in a Cox regression model fit. I want to learn more about this because I think it is important in model building to know the assumptions really well in order to understand and/or predict any flaws the models we produce/report maay have. I think the challenge with learning this is to make connections between the theory (the assumptions themselves) and how it translates to model interpretation with real data and real models. I think that learning the assumptions will be fairly straightforward especially if there are concrete examples. However, the challenge will be to translate what we learn to the models we build because often, the examples used to explain/teach a new concept are 'perfect' whereas the models that we build from real data can have gray areas (which is what makes model building an art :) ). For this topic, I plan to use the R documentation to learn about the *cox.zph* function and also look at real examples in statistical analysis papers to see how researchers use it to assess or interpret their models (links above).
+
+(Will probably do an additional new something if time permits since learning about cox.zph might not take long. I suspect it is a topic that is on the simple side of things from the list of potential topics, but I also think understanding model assumptions and potential flaws in models that don't exactly fit assumptions is important.)
+
+
 
 
 
