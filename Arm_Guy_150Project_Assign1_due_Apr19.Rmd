@@ -21,3 +21,9 @@ urlfile="https://raw.githubusercontent.com/gthampak/Arm_Guy_MATH150_Project/main
 raw_data <- read_csv(url(urlfile))
 ```
 
+```{r}
+raw_data_survfit <- survfit(Surv(dayslink, linkstatus) ~ group, data=raw_data)
+
+ggsurvplot(raw_data_survfit, conf.type = "TRUE") + 
+  ggtitle("KM-curve")
+```
