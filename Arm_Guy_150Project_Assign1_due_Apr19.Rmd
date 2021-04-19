@@ -67,13 +67,17 @@ table(HELPdata$abuse)
 
 Topics (and possible sources):
 
-- Investigation of the proportional hazards assumption (what does the R functioncox.zphdo?)
+- Investigation of the proportional hazards assumption (what does the R function *cox.zph* do?)
+
+https://www.rdocumentation.org/packages/survival/versions/3.2-7/topics/cox.zph
 
 - Exponential or Weibull PH regression (parametric survival model)
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5233524/
 
 - Deriving / detailing AIC & BIC for model selection on Cox PH
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2344147/
 
 - Power analysis (a simulation?)
 
@@ -92,6 +96,12 @@ https://cran.r-project.org/web/packages/survival/vignettes/timedep.pdf
 - An analysis / understanding / simulation of the multiple comparisons issues for assessing many differentmodels (or other exploratory hypotheses).
 
 - Andersen-Gill extension of the Cox PH model for time-varying covariates (available in rms R package).
+
+https://rdrr.io/cran/rms/man/cph.html (R instructions)
+
+http://finzi.psych.upenn.edu/library/rms/html/cph.html (R instructions)
+
+https://projecteuclid.org/journals/annals-of-statistics/volume-10/issue-4/Coxs-Regression-Model-for-Counting-Processes--A-Large-Sample/10.1214/aos/1176345976.full
 
 - Another topic related to survival analysis that you find interesting.
 
