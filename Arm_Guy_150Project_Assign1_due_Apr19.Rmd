@@ -1,9 +1,4 @@
 ---
-title: 
-output: pdf_document
----
-
----
 title: "Arm_Guy_150Project_Assign1_due_Apr19"
 author: "Arm and Guy"
 date: "April 19, 2021"
