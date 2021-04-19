@@ -18,12 +18,30 @@ library(readr)
 ```{r}
 urlfile="https://raw.githubusercontent.com/gthampak/Arm_Guy_MATH150_Project/main/HELPdata.csv"
 
-raw_data <- read_csv(url(urlfile))
+HELPdata <- read_csv(url(urlfile))
 ```
 
 ```{r}
-raw_data_survfit <- survfit(Surv(dayslink, linkstatus) ~ group, data=raw_data)
+HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ group, data=HELPdata)
 
-ggsurvplot(raw_data_survfit, conf.type = "TRUE") + 
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE") + 
   ggtitle("KM-curve")
 ```
+
+```{r}
+#histogram of age
+
+ggplot(HELPdata, aes(x=age, fill = as.factor(smoker))) + 
+  geom_histogram(binwidth = 1, color="black", fill="orange")
+```
+
+```{r}
+ggplot(data=HELPdata) + 
+  geom_bar(mapping=aes(x=age, fill=as.factor(smoker))) +
+  ggtitle("Histogram of Patients' Age and Smoking")
+```
+
+```{r}
+table(HELPdata$abuse)
+```
+
