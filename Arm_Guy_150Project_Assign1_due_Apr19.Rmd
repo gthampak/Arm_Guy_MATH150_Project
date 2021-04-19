@@ -120,7 +120,8 @@ https://projecteuclid.org/journals/annals-of-statistics/volume-10/issue-4/Coxs-R
 Variable selection techniques for the Cox proportional hazards model: A comparative study: https://core.ac.uk/download/pdf/152600668.pdf
 
 
-**Arm** - 
+**Arm** - New Topic(s): An analysis of the Schoenfeld residuals
+I was excited to learn about Schoenfeld residuals as I found an blog post with a very interesting title "Schoenfeld Residuals: The idea that turned regression modeling on its head".  Calculating residuals by using a given y to predict x seems fun to explore. I will use the blog post that I found, along with academic papers to get a better understanding of Schoenfeld residuals. I will also use R documentation on survival and survminer packages to learn how to calculate Schoenfeld residuals in R. Schoenfeld residuals can be used to test assumptions of cox ph model so I think it could be useful to include an analysis of the Schoenfeld residuals in our project.  It will be challenging to understand the new topic in such a way that we can integrate the explanations and derivations of Schoenfeld residuals into our paper well.  Eventhough Schoenfeld residuals can we calculated and visualized in R, we still need to be able to interpret them and apply them to our cox ph model, and that will also be a challenge.
 
 **Guy** - New Topic(s): Investigation of the proportional hazards assumption
 
