@@ -1,0 +1,22 @@
+---
+title: "assignment1_test"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r}
+HELPdata <- read_csv("HELPdata.csv")
+
+names(HELPdata)
+
+table(HELPdata$)
+
+ggplot(data=HELPdata) + geom_bar(mapping=aes(x=age, fill=as.factor(smoker)))
+
+table(HELPdata$totalrab)
+```
+
