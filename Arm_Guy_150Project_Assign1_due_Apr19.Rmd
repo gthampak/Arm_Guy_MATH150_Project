@@ -89,6 +89,10 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2344147/
 
 - Power analysis (a simulation?)
 
+https://cran.r-project.org/web/packages/powerSurvEpi/powerSurvEpi.pdf
+
+"coxph power calculation" google
+
 - Derivation of the sample size calculation for the log rank test (and application to the data)
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2692036/
