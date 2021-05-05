@@ -35,14 +35,22 @@ adjacent <- matrix(c(29, 15, 4, 10, 9, 15, 21, 8, 23, 10, 1,
                      2, 3, 2, 1, 1, 2, 3, 1, 2, 2, 2), nrow=13, ncol=11, byrow = TRUE)
 
 adjacent
+rownames(adjacent) <- c("seizure", "asthma", "heart attack", "heart failure", "other heart dis", "Hypertension", "chronic liver disease", "kidney failure", "chronic osteoarthritis", "peripheral neuropathy", "cancer", "diabetes", "stroke")
 
-m <- matrix(rnorm(9), nrow = 3, ncol = 3)
+colnames(adjacent) <- c("alcohol", "heroin", "methadone", "other opiates", "barbiturates", "sedatives", "cocaine", "amphetamines", "marijuana", "hallucinogens", "inhalants")
+
+
 fig <- plot_ly(
     x = c("alcohol", "heroin", "methadone", "other opiates", "barbiturates", "sedatives", "cocaine", "amphetamines", "marijuana", "hallucinogens", "inhalants"), y = c("seizure", "asthma", "heart attack", "heart failure", "other heart dis", "Hypertension", "chronic liver disease", "kidney failure", "chronic osteoarthritis", "peripheral neuropathy", "cancer", "diabetes", "stroke"),
     z = adjacent, type = "heatmap"
 )
 
+fig <- fig %>% layout(
+    title = "Relationship between substance use and MD diagnosis",
+      xaxis = list(title = "Substance use"),
+      yaxis = list(title = "MD Diagnosis"))
+
+
 fig
-m
 ```
 
