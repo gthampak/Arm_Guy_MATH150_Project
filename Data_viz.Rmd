@@ -1,0 +1,106 @@
+---
+title: "Data_viz"
+author: "Arm and Guy"
+date: "April 19, 2021"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+```{r global_options, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.height=3, fig.width=5, 
+                      fig.align = "center")
+library(tidyverse)
+library(broom)
+library(survival)
+library(survminer)
+library(readr)
+library(mosaic)
+```
+
+```{r}
+urlfile="https://raw.githubusercontent.com/gthampak/Arm_Guy_MATH150_Project/main/HELPdata.csv"
+
+HELPdata <- read_csv(url(urlfile))
+```
+
+```{r}
+HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ group, data=HELPdata)
+
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE") + 
+  ggtitle("KM-curve")
+```
+
+```{r}
+data(HELPfull)
+```
+
+```{r}
+table(HELPdata$dayslink)
+```
+
+```{r}
+ggplot(HELPdata) +
+  geom_jitter(aes(x = age, y = h1_lt, color = as.factor(h19a))) +
+  facet_wrap(~race)
+```
+
+```{r}
+HELPdata2 <- HELPdata %>%
+  filter(linkstatus == 0) %>%
+  mutate(dayslink_blck = case_when(
+    dayslink <= 0 ~ "0",
+    dayslink <= 25 ~ "0-25",
+    dayslink <= 50 ~ "25-50",
+    dayslink <= 100 ~ "50-100",
+    dayslink <= 150 ~ "100-150",
+    dayslink <= 200 ~ "150-200",
+    dayslink <= 250 ~ "200-250",
+    dayslink <= 300 ~ "250-300",
+    dayslink <= 350 ~ "300-350",
+    dayslink <= 400 ~ "350-400",
+    dayslink <= 450 ~ "400-450",
+    dayslink <= 500 ~ "450-500"
+  ))
+```
+
+```{r}
+table(HELPdata2$dayslink_blck)
+```
+
+```{r}
+ggplot(HELPdata2) +
+  geom_jitter(aes(x = h1_lt, y = dayslink, color = as.factor(h19a)))
+```
+
+```{r}
+
+ggplot(HELPdata2) +
+  geom_point(aes(x = dayslink_blck, y = a18, group = race, color = as.factor(h19a)))
+
+ggplot(HELPdata2) +
+  geom_jitter(aes(x = dayslink_blck, y = a18, group = race, color = as.factor(h19a)))
+
+
+```
+
+```{r}
+ggplot(HELPdata2) +
+  geom_jitter(aes(x = dayslink_blck, y = age, size = a18, color = as.factor(e15c1)))
+
+```
+
+
+```{r, out.width="300%", out.width="300%"}
+ggplot(HELPdata2) +
+  geom_point(aes(x = dayslink, y = bp, shape = '.', color = as.factor(h19a)))
+
+ggplot(HELPdata2) +
+  geom_jitter(aes(x = dayslink_blck, y = bp, shape = '.', color = as.factor(h19a)))
+```
+
+
+
+
+

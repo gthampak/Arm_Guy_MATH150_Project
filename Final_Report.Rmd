@@ -1,0 +1,45 @@
+---
+title: "Linking alcohol- and drug-dependent adults to primary medical care: a randomized controlled trial of a multi-disciplinary health intervention in a detoxification unit"
+author: "Arm and Guy"
+date: "May 14, 2021"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r global_options, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.height=3, fig.width=5, 
+                      fig.align = "center")
+library(tidyverse)
+library(broom)
+library(survival)
+library(survminer)
+library(readr)
+library(mosaic)
+```
+
+```{r}
+urlfile="https://raw.githubusercontent.com/gthampak/Arm_Guy_MATH150_Project/main/HELPdata.csv"
+
+HELPdata <- read_csv(url(urlfile))
+```
+
+###Title
+
+
+
+###Aim
+
+Our primary goal was to assess the effectiveness of a novel multi-disciplinary clinic for linking (DESCRIPTION) patients in a residential detoxification program to primary medical care.
+
+
+
+
+
+
+
+
+
+
+
