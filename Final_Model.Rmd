@@ -1,0 +1,90 @@
+---
+title: "Final_Model"
+author: "Arm and Guy"
+date: "May 14, 2021"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r global_options, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, fig.height=3, fig.width=5, 
+                      fig.align = "center")
+library(tidyverse)
+library(broom)
+library(survival)
+library(survminer)
+library(readr)
+library(mosaic)
+```
+
+```{r}
+urlfile="https://raw.githubusercontent.com/gthampak/Arm_Guy_MATH150_Project/main/HELPdata.csv"
+
+HELPdata <- read_csv(url(urlfile))
+```
+
+###Treatment Variable
+
+`group` Randomization Group (0=Control, 1=Clinic)
+
+###Variables associated with pain
+
+`b7` Amount of bodily pain -- past 4 weeks (1=None, 2=Very mild, 3= Mild, 4=Moderate, 5= Severe, 6= Very severe)
+
+`b8` Amount of pain interfering with normal work-last 4 weeks (1=Not at all, 2=A little bit, 3=Moderately, 4=Quite a bit, 5=Extremely)
+
+`bp` SF-36 pain index (0-100)
+
+`c2h1` Ever had abdom pain req overnt hosp stay (0=No, 1=Yes)
+
+`c2h2` Abdom pain req ovrnt hosp stay-last 6 months (0=No, 1=Yes)
+
+`c2m1` Chest pain using cocaine req ER/hosp (0=No, 1=Yes)
+
+`c2m2` Chest pain using coc req ER/hosp-last 6 months (0=No, 1=Yes)
+
+`c2o1` Lower back pain > 3 months req med attn (0=No, 1=Yes)
+
+`c2o2` Lwr back pain >3 months req med attention-last 6 months (0=No, 1=Yes)
+
+`rawbp` Raw SF-36 pain index
+
+```{r}
+HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ group, data=HELPdata)
+
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE") + 
+  ggtitle("KM-curve for Treatment vs. No Treatment")
+
+coxph(Surv(dayslink, linkstatus) ~ group, data=HELPdata) %>% tidy()
+```
+
+```{r}
+
+HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ group + hs_grad + alcohol, data=HELPdata)
+
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
+
+coxph(Surv(dayslink, linkstatus) ~ group + hs_grad + alcohol, data=HELPdata) %>% tidy()
+```
+
+```{r}
+coxph(Surv(dayslink, linkstatus) ~ group + a9, data=HELPdata) %>% tidy()
+```
+
+
+```{r}
+
+HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ group + any_ins, data=HELPdata)
+
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
+
+coxph(Surv(dayslink, linkstatus) ~ group, data=HELPdata) %>% tidy()
+```
+
+
+
+
+
+
