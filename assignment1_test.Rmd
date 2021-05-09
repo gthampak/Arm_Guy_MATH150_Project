@@ -14,11 +14,9 @@ HELPdata <- read_csv("HELPdata.csv")
 
 names(HELPdata)
 
-table(HELPdata)
-
 ggplot(data=HELPdata) + geom_bar(mapping=aes(x=age, fill=as.factor(smoker)))
 
-table(HELPdata$totalrab)
+as.data.frame(table(HELPdata$c1a, HELPdata$h2_prb))$Freq[4]
 
 adjacent <- matrix(c(29, 15, 4, 10, 9, 15, 21, 8, 23, 10, 1,
                      55, 20, 6, 8, 5, 15, 47, 7, 39, 15, 3,
@@ -52,5 +50,80 @@ fig <- fig %>% layout(
 
 
 fig
+```
+
+```{r}
+health_rate <- as.data.frame(table(HELPdata$b11d))
+names(health_rate) <- c("rating", "count")
+
+health_rate %>% ggplot(aes(x="", y=count, fill=rating)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0)
+
+self_health <- HELPdata %>% select(bp, b11d)
+
+self_health <- self_health %>% mutate(pain_score = case_when(bp <= 25 ~ "0-25",
+                                              bp <= 50 ~ "26-50",
+                                              bp <= 75 ~ "51-75",
+                                              bp <= 100 ~ "76-100"))
+
+self_health <- self_health %>% mutate(good_health = case_when(b11d == 1 ~ "Definitely true",
+                                                              b11d == 2 ~ "Mostly true",
+                                                              b11d == 3 ~ "Don't know",
+                                                              b11d == 4 ~ "Mostly false",
+                                                              b11d == 5 ~ "Definitely false"))
+
+self_health %>% 
+  ggplot() + geom_bar(aes(x=pain_score, fill=good_health))
+
+mental <- matrix(table(HELPdata$f1f, HELPdata$b11d), ncol=5, nrow=4)
+
+fig <- plot_ly(x = c("Definitely true", "Mostly true", "Don't know", "Mostly false", "Definitely false"), y = c("Rarely/never", "Some of the time", "Occas/moderately", "Most of the time"),
+    z = mental, type = "heatmap")
+fig
+
+expected_health <- HELPdata %>% select(age, b11c, bp)
+
+expected_health <- expected_health %>% mutate(age_group = case_when(age <= 20 ~ "0-20s",
+                                                                    age <= 30 ~ "30s",
+                                                                    age <= 40 ~ "40s",
+                                                                    age <= 50 ~ "50s",
+                                                                    age <= 60 ~ "60+"))
+
+expected_health <- expected_health %>% mutate(expected_hel = case_when(b11c == 1 ~ "Definitely true",
+                                                              b11c == 2 ~ "Mostly true",
+                                                              b11c == 3 ~ "Don't know",
+                                                              b11c == 4 ~ "Mostly false",
+                                                              b11c == 5 ~ "Definitely false"))
+
+expected_health <- expected_health %>% mutate(pain_score = case_when(bp <= 25 ~ "0-25",
+                                              bp <= 50 ~ "26-50",
+                                              bp <= 75 ~ "51-75",
+                                              bp <= 100 ~ "76-100"))
+
+expected_health %>% 
+  ggplot() + geom_bar(aes(x=age_group, fill=pain_score))
+
+HELPdata %>% 
+  ggplot() + geom_bar(aes(x=a9, fill=as.factor(d5_rec)))
+
+HELPdata <- HELPdata %>% mutate(pain_score = case_when(bp <= 25 ~ "0-25",
+                                              bp <= 50 ~ "26-50",
+                                              bp <= 75 ~ "51-75",
+                                              bp <= 100 ~ "76-100"))
+
+HELPdata %>% ggplot() +
+  geom_jitter(aes(x=age, y=gh, color=pain_score))
+
+
+```
+
+```{r}
+HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ a18, data=HELPdata)
+
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE") + 
+  ggtitle("KM-curve")
+
+coxph(Surv(dayslink, linkstatus) ~ group, data=HELPdata) %>% tidy()
 ```
 
