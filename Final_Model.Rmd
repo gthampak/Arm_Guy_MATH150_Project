@@ -84,6 +84,13 @@ coxph(Surv(dayslink, linkstatus) ~ group, data=HELPdata) %>% tidy()
 ```
 
 
+```{r}
+HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ group + gh, data=HELPdata)
+
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
+
+coxph(Surv(dayslink, linkstatus) ~ group + gh, data=HELPdata) %>% tidy()
+```
 
 
 

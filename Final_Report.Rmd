@@ -1,5 +1,5 @@
 ---
-title: "Linking alcohol- and drug-dependent adults to primary medical care: a randomized controlled trial of a multi-disciplinary health intervention in a detoxification unit"
+title: "An investigation of the success of linking adults with poor personal of their health and self-care to primary medical care"
 author: "Arm and Guy"
 date: "May 14, 2021"
 output:
@@ -27,13 +27,50 @@ HELPdata <- read_csv(url(urlfile))
 
 ###Title
 
+###Introduction
 
+(move from general to specific)
 
-###Aim
+background info (look at source 1)
 
-Our primary goal was to assess the effectiveness of a novel multi-disciplinary clinic for linking (DESCRIPTION) patients in a residential detoxification program to primary medical care.
+motivation?
 
+###Aim/Hypothesis
 
+Our primary goal was to assess the effectiveness of a novel multi-disciplinary clinic for linking patients in a residential detoxification program with poor personal perception towards healthcare to primary medical care.
+
+###Methods
+
+(make sure replicable)
+
+Explanation of variables we explored, why we explored them (in relation to our mainhypothsis/primary aim)
+
+Categorize variables explored (sf scores??)
+
+###Results (Model goes here!)
+
+Re-state question/goal
+
+Results/Data Analysis of each question/hypothesis
+
+Figures!!
+
+(need connection between ideas)
+
+###Discussion
+
+Does results answer question?
+
+How did we deviate from question in the process? Anything interesting 
+
+Be clear with why we accept of reject null hypotheses
+
+Relate work to previous research
+
+###Sources/References
+
+Perception of Health and Use of Health Care Services in a Swedish Primary Care District. A ten Year's Perspective
+https://www.tandfonline.com/doi/pdf/10.3109/02813439109026592
 
 
 
