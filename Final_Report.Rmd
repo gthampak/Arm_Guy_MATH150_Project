@@ -29,6 +29,10 @@ HELPdata <- read_csv(url(urlfile))
 
 ###Introduction
 
+Connecting with medical care is a choice.  Many different factors could be involved when deciding whether or not to connect with medical care.  Perception of your own personal health influences your decision to connect with medical care for non-major medical emergencies.  Although we are able to do some basic self diagnosis with help of the internet, there is a high chance of a misdiagnosis given the various issues with access to useful and accurate medical information.  Since we do not deem it a necessity if our health is not in a critical condition, we may decide not to connect with medical care.  Apart from the personal health perceptions, there are also perceptions of health care system, which could include the ability to pay for health treatment.  Lastly, one may not be in the optimal mental space to decide whether or not to connect with medical care, which could be due to poor mental health or substance abuse.  
+
+There have been many studies and surveys which try to gauge the accuracy of an individual personal health perception and their views towards healthcare.  We attempt to widen the scope of personal perception of general health to investigate factors which could influence an individual’s view and opinions on their own health as well as primary healthcare.
+
 (move from general to specific)
 
 background info (look at source 1)
