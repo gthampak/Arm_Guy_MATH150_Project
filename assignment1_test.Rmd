@@ -1,6 +1,8 @@
 ---
 title: "EDA"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -196,12 +198,11 @@ HELPdata %>%
 
 
 Survival Analysis 
-```{r}
+
 HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ a18, data=HELPdata)
 
 ggsurvplot(HELPdata_survfit, conf.type = "TRUE") + 
   ggtitle("KM-curve")
 
 coxph(Surv(dayslink, linkstatus) ~ group, data=HELPdata) %>% tidy()
-```
 

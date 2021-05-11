@@ -182,8 +182,22 @@ ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
 ```
 
 
+```{r}
+coxph(Surv(dayslink, linkstatus) ~ group + as.factor(h14), data=HELPdata) %>% tidy()
+```
 
+Test for hs_grad and substances
+```{r}
+ggplot(data = HELPdata) +
+  geom_bar(aes(x = hs_grad, fill = as.factor(alcohol)))
 
+t.test(any_util~hs_grad, data = HELPdata)
+```
+
+```{r}
+v <- c(HELPdata$gh, HELPdata$ht, HELPdata$mh, HELPdata$pf, HELPdata$re, HELPdata$rp)
+t.test(v~hs_grad, data = HELPdata)
+```
 
 
 
