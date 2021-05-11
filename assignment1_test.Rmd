@@ -1,5 +1,5 @@
 ---
-title: "assignment1_test"
+title: "EDA"
 output: pdf_document
 ---
 
@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(plotly)
 ```
-
+Heat map to show the relationship between health problems diagnosed by MD vs chronic substance use
 ```{r}
 HELPdata <- read_csv("HELPdata.csv")
 
@@ -52,6 +52,8 @@ fig <- fig %>% layout(
 fig
 ```
 
+
+Pie chart to show how people rate their own health in the whole dataset.
 ```{r}
 health_rate <- as.data.frame(table(HELPdata$b11d))
 names(health_rate) <- c("rating", "count")
@@ -60,6 +62,10 @@ health_rate %>% ggplot(aes(x="", y=count, fill=rating)) +
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0)
 
+```
+
+This visualization checks the hypothesis that a higher pain score corresponds to a lower self rating of health.  The lower score means the subject is in greater pain. We see that as pain score increases, the people who rated their health to be excellent increases, which makes sense.
+```{r}
 self_health <- HELPdata %>% select(bp, b11d)
 
 self_health <- self_health %>% mutate(pain_score = case_when(bp <= 25 ~ "0-25",
@@ -73,15 +79,21 @@ self_health <- self_health %>% mutate(good_health = case_when(b11d == 1 ~ "Defin
                                                               b11d == 4 ~ "Mostly false",
                                                               b11d == 5 ~ "Definitely false"))
 
-self_health %>% 
-  ggplot() + geom_bar(aes(x=pain_score, fill=good_health))
+self_health_pct <- self_health %>% group_by(pain_score, good_health) %>%
+  summarize(Total=n()) %>%
+  group_by(pain_score) %>%
+  mutate(pct=Total/sum(Total))
 
-mental <- matrix(table(HELPdata$f1f, HELPdata$b11d), ncol=5, nrow=4)
 
-fig <- plot_ly(x = c("Definitely true", "Mostly true", "Don't know", "Mostly false", "Definitely false"), y = c("Rarely/never", "Some of the time", "Occas/moderately", "Most of the time"),
-    z = mental, type = "heatmap")
-fig
+self_health_pct %>% 
+  ggplot() + geom_bar(aes(x=pain_score, y=pct, fill=good_health), stat="identity") + 
+  labs(fill = "My health is excellent")
 
+
+```
+
+Checking the hypothesis that the people of older age will more likely believe that their health will get worse.  This is mostly true as the percentage of people who believe their health will get worse increases as age increases.
+```{r}
 expected_health <- HELPdata %>% select(age, b11c, bp)
 
 expected_health <- expected_health %>% mutate(age_group = case_when(age <= 20 ~ "0-20s",
@@ -101,8 +113,20 @@ expected_health <- expected_health %>% mutate(pain_score = case_when(bp <= 25 ~ 
                                               bp <= 75 ~ "51-75",
                                               bp <= 100 ~ "76-100"))
 
-expected_health %>% 
-  ggplot() + geom_bar(aes(x=age_group, fill=pain_score))
+health_pct <- expected_health %>% group_by(age_group, expected_hel) %>%
+  summarize(Total=n()) %>%
+  group_by(age_group) %>%
+  mutate(pct=Total/sum(Total))
+
+health_pct %>%
+  ggplot() + geom_bar(aes(x=age_group, y=pct, fill=expected_hel), stat="identity") + 
+  labs(fill = "I expect my health to get worse")
+
+```
+
+Experimenting with more SF-36 scores, we check whether the general health perceptions scores correlated with the pain scores. The higher general health scores should mean higher pain scores since the subjects are under less bodily pain.  This seems to be the case, meaning the SF-36 scores relate pretty well to one and other. 
+
+```{r}
 
 HELPdata %>% 
   ggplot() + geom_bar(aes(x=a9, fill=as.factor(d5_rec)))
@@ -113,11 +137,65 @@ HELPdata <- HELPdata %>% mutate(pain_score = case_when(bp <= 25 ~ "0-25",
                                               bp <= 100 ~ "76-100"))
 
 HELPdata %>% ggplot() +
-  geom_jitter(aes(x=age, y=gh, color=pain_score))
-
+  geom_jitter(aes(x=age, y=gh, color=pain_score)) + 
+  labs(x="age", y="SF-36 General Health Perceptions score", color="SF-36 Pain score")
 
 ```
+Here we investigate the relationship between mental health and general health. This visualisation is an effort to answer the question, do individuals incorporate their mental health to how they rate their mental health.  It seems that the majority of people who think their general health is bad also are suffering from poor mental health, which means that mental health is also considered in overall general health. 
 
+```{r}
+depres <- HELPdata %>% select(s1a, s1b, s1c, f1f)
+depres <- depres %>% mutate(depressed = case_when(f1f == 0 ~ 0,
+                                        TRUE ~ 1))
+
+mental <- matrix(table(HELPdata$f1f, HELPdata$b11d), ncol=5, nrow=4)
+
+fig1 <- plot_ly(x = c("Definitely true", "Mostly true", "Don't know", "Mostly false", "Definitely false"), y = c("Rarely/never", "Some of the time", "Occas/moderately", "Most of the time"),
+    z = mental, type = "heatmap")
+
+fig1 <- fig1 %>% layout(
+    title = "Relationship Personal mental health perception and general health perception",
+      xaxis = list(title = "My health is excellent"),
+      yaxis = list(title = "I felt depressed"))
+
+fig1
+```
+
+Now we investigate education as education may affect the individuals perception of health care, their knowledge of the health care system and their ability to self diagnose themselves.  We plot a quick histogram to see whether years of education correspond with the high school variable and it does.  12 years of formal education is when high school finishes, and this is the case here. 
+
+Next we see if high school graduates have recently used a health care service, and whether there is a difference between groups which are high school graduates and not.  There doesn't seem to be any differences between the two groups.  
+
+So we also check whether the high school graduates groups differ in their thought as to whether medical treatment is important.  Again, there is no difference between the two groups.
+```{r}
+HELPdata %>%
+  ggplot() + geom_bar(aes(x=a9, fill=as.factor(hs_grad)))
+
+table(HELPdata$hs_grad, HELPdata$any_util)
+
+edu_health <- HELPdata %>% select(hs_grad, any_util)
+edu_health <- na.omit(edu_health)
+
+edu_health %>% 
+  ggplot() + geom_bar(aes(x=hs_grad, fill=as.factor(any_util)))
+
+edu_pct <- edu_health %>% group_by(hs_grad, any_util) %>%
+  summarize(Total=n()) %>%
+  group_by(hs_grad) %>%
+  mutate(pct=Total/sum(Total))
+
+
+edu_pct %>%
+  ggplot() + geom_bar(aes(x=hs_grad, y=pct, fill=as.factor(any_util)), stat="identity") + 
+  labs(fill = "Any recent health utilization")
+
+
+HELPdata %>% 
+  ggplot() + geom_bar(aes(x=hs_grad, fill=as.factor(d5_rec)))
+```
+
+
+
+Survival Analysis 
 ```{r}
 HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ a18, data=HELPdata)
 
