@@ -3,9 +3,9 @@ title: "Final_Model"
 author: "Arm and Guy"
 date: "May 14, 2021"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 ```{r global_options, include=FALSE, message=FALSE, warning=FALSE}
@@ -91,6 +91,104 @@ ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
 
 coxph(Surv(dayslink, linkstatus) ~ group + gh, data=HELPdata) %>% tidy()
 ```
+
+
+###Final
+
+Variables
+
+ANY_UTIL Any recent health utilization (0=No, 1=Yes)a
+CES_D CES-D score, measure of depressive symptoms, high scores are worse
+CNTRL InDUC-2L-Control score
+C_AU ASI-Composite score for alcohol use
+C_DU ASI-Composite score for drug use
+C_MS ASI-Composite medical status
+
+D5_REC Medical trtmt is important y/n (0=No, 1=Yes)
+D5 How import is trtmnt for these med probs (0=Not at all, 1=Slightly, 2= Moderately, 3= Considerably, 4= Extremely
+E10A have you been to med clinic-last 6 months (0=No, 1=Yes)
+E15C2 I did not know where to go for help (0=No, 1=Yes)
+E8A1 Saw MD/H care worker regarding alcohol/drugs-last 6 months (0=No, 1=Yes)
+FRML_SAT Formal substance abuse treatment y/n (0=No, 1=Yes)
+
+GH SF-36 general health perceptions (0-100)
+HT Raw SF-36 health transition item
+MH SF-36 mental health index (0-100)
+PF SF-36 physical functioning (0-100)
+RE SF-36 role-emotional (0-100)
+RP SF-36 role physical (0-100)
+
+H14 According to interviewer, which substance is main problem (0=No problem, 1=Alcohol, 2=Alcohol to intox, 3=Heroin 4=Methadone, 5=Other opiate/analg, 6=Barbituates, 7=Sed/hyp/tranq, 8=Cocaine, 9=Amphetamines, 10=Marij/cannabis, 15=Alcohol and one or more drug, 16=More than one drug)
+PRIM_SUB First drug of choice (0=None, 1=Alcohol, 2=Cocaine, 3=Heroin, 4=Barbituates, 5=Benzos, 6=Marijuana, 7=Methadone, 8=Opiates)
+
+H19A How import is treatment for alcohol problems now (0=Not at all, 1=Slightly, 2=Moderately, 3=Considerably, 4=Extremely)
+H19B How important is trtmnt for drug probs now (0=Not at all, 1=Slightly, 2=Moderately, 3=Considerably, 4=Extremely)
+
+S1A At interview pt obviously depressed/withdrawn (0=No, 1=Yes)
+S1B at interview pt obviously hostile (0=No, 1=Yes)
+S1C At interview patientt obviously anxious/nervous (0=No, 1
+
+A9 Years of education completed
+
+```{r}
+coxph(Surv(dayslink, linkstatus) ~ group + a9 + any_util + ces_d + cntrl + c_au + c_du + c_ms + gh + ht + mh + pf + re + rp + h14 + prim_sub + h19a + h19b + s1a + s1b + s1c, data=HELPdata) %>% tidy()
+```
+
+```{r}
+coxph(Surv(dayslink, linkstatus) ~ group + any_util + ces_d + cntrl + c_au + c_du + c_ms, data=HELPdata) %>% tidy()
+```
+
+
+```{r}
+coxph(Surv(dayslink, linkstatus) ~ group + d5_rec + d5 + e10a + e15c2 + e8a1 + frml_sat) %>% tidy()
+```
+
+```{r}
+coxph(Surv(dayslink, linkstatus) ~ group + gh + ht + mh + pf + re + rp, data=HELPdata) %>% tidy()
+```
+
+```{r}
+coxph(Surv(dayslink, linkstatus) ~ group + h14 + prim_sub, data=HELPdata) %>% tidy()
+```
+
+```{r}
+coxph(Surv(dayslink, linkstatus) ~ group + h19a + h19b , data=HELPdata) %>% tidy()
+```
+
+```{r}
+coxph(Surv(dayslink, linkstatus) ~ group + s1a + s1b + s1c, data=HELPdata) %>% tidy()
+```
+
+###SF scores - Model Building
+
+```{r}
+coxph(Surv(dayslink, linkstatus) ~ group + pf + rp, data=HELPdata) %>% tidy()
+```
+
+###Model Making
+
+Potentially Significant Variables
+
+hs_grad
+
+a9
+
+
+
+```{r}
+HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ group + hs_grad, data=HELPdata)
+
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
+```
+
+
+
+
+
+
+
+
+
 
 
 
