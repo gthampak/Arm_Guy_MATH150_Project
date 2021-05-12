@@ -9,12 +9,15 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(plotly)
+library(broom)
+library(survival)
+library(survminer)
+library(readr)
+library(rms)
 ```
 Heat map to show the relationship between health problems diagnosed by MD vs chronic substance use
 ```{r}
 HELPdata <- read_csv("HELPdata.csv")
-
-names(HELPdata)
 
 ggplot(data=HELPdata) + geom_bar(mapping=aes(x=age, fill=as.factor(smoker)))
 
@@ -82,7 +85,7 @@ self_health <- self_health %>% mutate(good_health = case_when(b11d == 1 ~ "Defin
                                                               b11d == 5 ~ "Definitely false"))
 
 self_health_pct <- self_health %>% group_by(pain_score, good_health) %>%
-  summarize(Total=n()) %>%
+  summarise(Total=n()) %>%
   group_by(pain_score) %>%
   mutate(pct=Total/sum(Total))
 
@@ -116,7 +119,7 @@ expected_health <- expected_health %>% mutate(pain_score = case_when(bp <= 25 ~ 
                                               bp <= 100 ~ "76-100"))
 
 health_pct <- expected_health %>% group_by(age_group, expected_hel) %>%
-  summarize(Total=n()) %>%
+  summarise(Total=n()) %>%
   group_by(age_group) %>%
   mutate(pct=Total/sum(Total))
 
@@ -181,7 +184,7 @@ edu_health %>%
   ggplot() + geom_bar(aes(x=hs_grad, fill=as.factor(any_util)))
 
 edu_pct <- edu_health %>% group_by(hs_grad, any_util) %>%
-  summarize(Total=n()) %>%
+  summarise(Total=n()) %>%
   group_by(hs_grad) %>%
   mutate(pct=Total/sum(Total))
 
@@ -194,15 +197,42 @@ edu_pct %>%
 HELPdata %>% 
   ggplot() + geom_bar(aes(x=hs_grad, fill=as.factor(d5_rec)))
 ```
+We investigate the proportion of people who use alcohol is the primary substance to whether they believe medical treatment is important. 
+
+```{r}
+alc_medical <- HELPdata %>% select(alcohol, d5_rec)
+
+alc_medical <- alc_medical %>% mutate(alc = case_when(
+  alcohol == 1 ~ "Yes",
+  TRUE ~ "No"))
+  
+alc_pct <- alc_medical %>% group_by(d5_rec, alc) %>%
+  summarise(Total=n()) %>%
+  group_by(alc) %>%
+  mutate(pct=Total/sum(Total))
+
+alc_pct <- alc_pct %>% mutate(medical = case_when(
+  d5_rec == 1 ~ "Yes",
+  TRUE ~ "No"))
+
+alc_pct %>%
+  ggplot() + geom_bar(aes(x=alc, y=pct, fill=medical), stat="identity") + 
+  labs(fill = "is medical treament important?", x="1st/2nd drug of choice is alcohol")
+```
 
 
 
 Survival Analysis 
-
-HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ a18, data=HELPdata)
+```{r}
+HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ pf + rp, data=HELPdata)
 
 ggsurvplot(HELPdata_survfit, conf.type = "TRUE") + 
   ggtitle("KM-curve")
 
-coxph(Surv(dayslink, linkstatus) ~ group, data=HELPdata) %>% tidy()
+coxph(Surv(dayslink, linkstatus) ~ group + alcohol + hs_grad + any_util + age, data=HELPdata) %>% tidy()
+
+cph(Surv(dayslink, linkstatus) ~ group + alcohol + hs_grad + any_util + age, data=HELPdata)
+```
+
+
 
