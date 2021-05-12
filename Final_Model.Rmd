@@ -17,6 +17,7 @@ library(survival)
 library(survminer)
 library(readr)
 library(mosaic)
+library(pec)
 ```
 
 ```{r}
@@ -195,9 +196,34 @@ t.test(any_util~hs_grad, data = HELPdata)
 ```
 
 ```{r}
-v <- c(HELPdata$gh, HELPdata$ht, HELPdata$mh, HELPdata$pf, HELPdata$re, HELPdata$rp)
-t.test(v~hs_grad, data = HELPdata)
+#v <- c(HELPdata$gh, HELPdata$ht, HELPdata$mh, HELPdata$pf, HELPdata$re, HELPdata$rp)
+t.test(d5_rec~alcohol, data = HELPdata)
 ```
+
+
+```{r}
+HELPdata <- HELPdata %>%
+  mutate(pf_grp = case_when(
+    pf <= 80 ~ "0-80",
+    pf <= 100 ~ "80-100"
+  ))
+```
+
+```{r}
+coxph(Surv(dayslink, linkstatus) ~ group + pf_grp, data=HELPdata) %>% tidy()
+```
+
+```{r}
+HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ pf_grp, data=HELPdata)
+
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
+```
+
+
+
+
+
+
 
 
 
