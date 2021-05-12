@@ -1,0 +1,71 @@
+---
+title: "Lit Review"
+output: html_document
+---
+
+**Perception of Health and Use of Health Care Services in a Swedish Primary Care District. A ten Year's Perspective**
+
+* paper investigates age and sex as factors in personal health perception 
+* survey shows that as people get older, a higher proportion report that they are sick or unhealthy 
+* there was significance that those who labeled themselves as healthy used healthcare less than those who said they were ill or of bad health
+
+**“What being healthy means to me”: A qualitative analysis uncovering the core categories of adolescents’ perception of health**
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0218727
+
+* five core categories that adolescents used to describe what being healthy or unhealthy meant to them: physical appearance, personal commitment and goals, possessions and space, use of free time, and social belonging.
+
+**Men and women perceive their own health differently**
+https://www.sciencedaily.com/releases/2019/11/191113153108.htm
+
+* Men reported higher levels of physical activity and greater confidence in their ability to remain physically active
+* Men and women had comparable levels of confidence that they would maintain a healthy diet.
+* there was no significant gender difference in perception of personal health.
+
+**Health Perception: Validation of a Scale for the Portuguese Population**
+https://www.scielo.br/scielo.php?pid=S2358-18832018000402167&script=sci_arttext&tlng=en
+
+* people assess better their health status due to an increased level of education
+* "Health perception encompasses both physical and mental well-being and, for some, even spiritual attainment"
+* “It is a subjective concept, and an individual's perceptions can reflect feelings and beliefs more than their current physical state”
+* “Studies in the general population indicate that health perception is an important predictor of health outcomes”
+* One of the surveys used in this study is the SF-36 short form survey
+
+**Psychological well-being and health perception: predictors for past, present and future**
+http://www.scielo.br/scielo.php?script=sci_arttext&pid=S0101-60832019000300053
+
+* The current study addresses this issue by presenting a new perspective focusing on health perceptions.
+* Results provide support for a bidirectional relationship between health perception and psychological well-being.
+* Correlations between current health and other health variables tended to be higher for feelings of general health, pain, and worry than for variables more directly observable, such as “bed days” and activity limitations.
+* Current health, prior health, and future health scale scores were significantly negatively correlated with age.
+
+**How Your Perception of Health May Extend Your Life**
+https://www.gsb.stanford.edu/insights/how-your-perception-health-may-extend-your-life
+
+* our mindsets — in this case, beliefs about how much exercise we are getting relative to others — can play a crucial role in our health
+* they found that individuals who believed that they were less active than others were up to 71 percent more likely to die in the follow-up period than individuals who believed that they were more active than their peers
+* perceptions can affect motivation, both positively and negatively
+* the cited paper from the article: https://www.apa.org/pubs/journals/releases/hea-hea0000531.pdf
+
+**The Health Belief Model**
+https://sphweb.bumc.bu.edu/otlt/mph-modules/sb/behavioralchangetheories/behavioralchangetheories2.html
+
+* Ultimately, an individual's course of action often depends on the person's perceptions of the benefits and barriers related to health behavior
+* Six constructs of the health belief model are as follows:
+    * Perceived susceptibility
+    * Perceived severity
+    * Perceived benefits
+    * Perceived barriers
+    * Cue to action
+    * Self-efficacy
+
+**Perceptions About Alcohol Harm and Alcohol-control Strategies Among People With High Risk of Alcohol Consumption in Alberta, Canada and Queensland, Australia**
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5797720/
+
+* people with hazardous alcohol were less likely to believe that alcohol use contributes to health problems
+* Queenslanders with hazardous alcohol use were less likely to believe that alcohol was a major contributor to injury
+* Our results suggest that people with hazardous alcohol use tend to underestimate the negative effect of alcohol consumption on health and its contribution to injuries.
+
+**The public perception of the risks and benefits of alcohol consumption**
+https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1753-6405.1992.tb00023.x
+
+* Assess the public's perception of the risks and benefits of alcohol use, and their understanding of recommended levels of safe alcohol consumption.
