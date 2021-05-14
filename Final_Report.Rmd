@@ -34,7 +34,7 @@ Connecting with medical care is a choice. Many different factors could be involv
 
 There have been many studies and surveys which try to gauge the accuracy of an individual personal health perception and their views towards healthcare.  We attempt to widen the scope of personal perception of general health to investigate factors which could influence an individual’s view and opinions on their own health as well as primary healthcare.  Better understanding the influences on one's decision to connect with medical care can help focus efforts in specific sectors to give care to people who require care but don't know it themselves.
 
-There are many factors that could lead to differences in health perception. A study shows that people with higher education better assess their health status (more consistent with medical professionals) (Souto et al.). Additionally, a study shows that men and women do not percieve their health differently, but have different views on what constitutes a hleathy lifestyle (Mayo Clinic). It has also been shown that there are higher correlations between overall health and abstract health-related variables such as feelings of general health, pain, and worry than for concrete and observable variables, such as “bed days” and activity limitations (Leite et al.). Furthermore, substance users, specifically alcohol, tend to underestimate the negative effect of alcohol consumption on health and its contribution to injuries.
+There are many factors that could lead to differences in health perception. A study shows that people with higher education better assess their health status (more consistent with medical professionals) (Souto et al.). Additionally, a study shows that men and women do not percieve their health differently, but have different views on what constitutes a hleathy lifestyle (Mayo Clinic). It has also been shown that there are higher correlations between overall health and abstract health-related variables such as feelings of general health, pain, and worry than for concrete and observable variables, such as “bed days” and activity limitations (Leite et al.). Furthermore, substance users, specifically alcohol, tend to underestimate the negative effect of alcohol consumption on health and its contribution to injuries ((Sanchez-Ramirez et al.)).
 
 As described, there has been many studies on variables that affect health perception and self-evaluation. Although many previous literature explore factors which could impact perception of health, there haven’t been many who investigate the relationship of these factors with health care perception. A study by Samet et al. explores alcohol dependency as a factor that affects linkage to primary healthcare as a secondary variable, with the primary independent variable being treatment groups to encourage linking with primary healthcare.The study concluded that the treatment was similarly effective for subjects with alcohol and illicit drug problems.
 
@@ -42,7 +42,7 @@ We hypothesize that if factors affect perception of health, they will also have 
 
 We investigate significant factors of perception of personal health, to find if they are significant in predicting the time to link with primary healthcare. We begin by identifying factors which affect personal health perception, such as age and education.  Using a coxph model, we find significant factors in predicting times to link to primary healthcare.
 
-## Aim/Hypothesis
+**Aim/Hypothesis**
 
 Our primary goal was to assess how personal perception of someone's health and their perception of healthcare affects the effectiveness of  novel multi-disciplinary clinic for linking patients in a residential detoxification program to primary medical care.
 
@@ -237,6 +237,12 @@ We also wanted to see whether the proprotion of high school graduates and non-hi
 t.test(d5_rec~hs_grad, data = HELPdata)
 ```
 
+```{r, echo=FALSE}
+t.test(d5_rec~a1, data = HELPdata)
+```
+
+The above t-test shows that we cannot reject the null hypotheiss that the proportion of patients who view medical treatment as important is the same for both male and female patients.
+
 **Significant Variables after prelimiinary models**
 * group
 * alcohol
@@ -335,28 +341,21 @@ The significance of the `alcohol` variable shows that people who ackowledge thei
 
 The significance of the `hs_grad` variable shows that high school graduates are less willing to link up with primary healthcare (0.5810736 as likely) compared to non high school graduates. This may be because with minor problems, high graduates may be more confident in self-diagnosing and looking for solutions themselves before seeing the need to link up with primary healthcare. From our preliminary data analysis, we found that the proportion of high school graduates and non-high school graduates who view medical treatment as important are not significantly different (difference in proportion 95% CI= (-0.09854964, 0.13218183)). Thus, we believe that a possible reason high school graduates are less likely to link up with primary health care is because they are less likley to seek medical treatment under less severe circumstances/sickness.
 
-#to-add: Portugese paper
+We feel this is consistent with and related to the study by Souto et al. which shows that people with higher education better assess their health status more consistent with medical professionals. We can infer that people with higher education, are more confident with self-diagnosis and self-treatment and thus take longer, with all else constant, to link with primary care.
 
 The significance of the `any_util` variable in the model shows that patients who have recently recieved healthcare are less likely to link up with primary healthcare (0.6644908 times as likely). A possible reason is because healthcare is expensive and people may be less likely to visit primary healthcare successively, they may have had an unpleasant visit, a recent confirmation from a hleathcare professional may increase their confidence in regards to their health, so they are less likely to think linking with primary healthcare is necessary. 
 
 The significance of the `age` variable in the model shows that the older you are, the more likely you are to link up with primary healthcare (1.024149 as likely for every one year increase). This directly relates to our initial exploratory data analysis where we saw that people in older age groups have more negative outlooks on their future health, which could explain their increased likelihood of linking with primary healthcare (with all else constant).
 
+More generally, our exploratory data analysis results are largely consistent with previous studies discussed in the introduction. There is no significant difference in proportion of patients who view medical treatment as important for males and females (95% CI: (-0.18727736,  0.05958477)), which is consistent with the study by Mayo clinic on gender and health perception. However, there are significant differences between patients with and without alcohol as primary substances, similar to the study done by Samet et al. on primary care linkage and Sanchez-Ramirez et al. on health perceptions of alcohol dependents. One difference that we had was high school graudation as a factor in determining views on importance or medical treatment, as the proportion of those who view it as important is the same in both groups (95% CI: (-0.09854964, 0.13218183)). However, this is not an inconsistency with the study by Souto et al. on education and self-diagnosis assessment as view on medical treatment importance is diferent than self-diagnosis.
 
-Does the author adequately relate the results of the current work to previous research?Does the author appropriately discuss to whom the results can be generalized?
+**Interesting Note**
 
+When building our model, Variables that are significant tend to be binary variables with an even distribution of yes/no answers (or even more lob-sided towards yes (1) response). We suspect this is because more observations in each group directly translates to higher power, a lower absolute difference can result in lower (and potentially significant) p-values.
 
---------------------
+**Concluding Statement**
 
-Does results answer question?
-
-
-Be clear with why we accept of reject null hypotheses
-
-Relate work to previous research,
-
-
-**Interesting points (potentially)**
-* Variables that are significant tend to be binary variables with an even distribution of yes/no answers (or even more lob-sided towards yes (1) response). We suspect this is because more observations in each group directly translates to higher power, a lower absolute difference can result in lower (and potentially significant) p-values.
+We reject the null hypothesis that factors affecting health perception and perception on healthcare are unrelated to the likelihood of a person linking with primary heatlchare at any given time, with all else being constant as shown by significant variables discussed and included in mode.
 
 
 ## Sources/References
