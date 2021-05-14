@@ -3,9 +3,11 @@ title: "An Investigation of How Personal Perception of One's Health and Their Pe
 author: "Arm and Guy"
 date: "May 14, 2021"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
+bibliography: references.bib
+nocite: "@*"
 ---
 
 ```{r global_options, include=FALSE, message=FALSE, warning=FALSE}
@@ -18,6 +20,8 @@ library(survminer)
 library(readr)
 library(mosaic)
 library(plotly)
+library(webshot)
+webshot::install_phantomjs()
 ```
 
 ```{r}
@@ -28,7 +32,7 @@ HELPdata <- read_csv(url(urlfile))
 
 ```
 
-## Introduction
+#3# Introduction
 
 Connecting with medical care is a choice. Many different factors could be involved when deciding whether or not to connect with medical care.  Perception of your own personal health influences your decision to connect with medical care for non-major medical emergencies.  Although we are able to do some basic self diagnosis with help of the internet, there is a high chance of a misdiagnosis given the various issues with access to useful and accurate medical information.  Since we do not deem it a necessity if our health is not in a critical condition, we may decide not to connect with medical care.  Apart from the personal health perceptions, there are also perceptions of health care system, which could include the ability to pay for health treatment.  Lastly, one may not be in the optimal mental space to decide whether or not to connect with medical care, which could be due to poor mental health or substance abuse.  
 
@@ -46,7 +50,7 @@ We investigate significant factors of perception of personal health, to find if 
 
 Our primary goal was to assess how personal perception of someone's health and their perception of health care affects the effectiveness of novel multi-disciplinary clinic for linking patients in a residential detoxification program to primary medical care.
 
-## Methods
+### Methods
 
 First, we looked at variables that are related to health and health perception and separated them into different categories.
 
@@ -103,7 +107,7 @@ First, we looked at variables that are related to health and health perception a
 
 The functions we used for our primary data analyses are coxph(Surv()) to test for significance of Hazard Ratio coefficients and survfit(Sruv()) to plot survival curves. First we put all the variables above into a single model and removed the ones with highest significance one at a time. We also ran models with variables from a single category (above), and removed variables with highest significance. We did this to prevent putting highly correlated variables from the same category into the main model. We also tried looking for interaction between variables, but none were significant.
 
-## Results (Model goes here!)
+### Results
 
 **Exploratory Data Analyses**
 
@@ -277,7 +281,7 @@ Because our primary method of survival analysis is the Cox proportional hazard m
 First, as a preliminary check, we can plot the associated KM curves for the variable individually and observe whether they intersect. If they do, then the hazard ratio is not constant can the variable varies with time.
 
 ```{r}
-HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ group + alcohol + hs_grad + any_util + age, data=HELPdata)
+HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ group, data=HELPdata)
 
 ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
 ```
@@ -319,13 +323,13 @@ In order to understand the calculations of the Schoenfeld residuals, we observe 
 
 We can then plot the Schoenfeld residuals for our model, where there is one plot for each of the predictor variables in the model.  We observe that the Schoenfeld residuals are not correlated, which means that we have satisfied the proportional hazards assumption for our cox ph model, which is the same result as the methods used to check the proportional hazards assumption above.
 
-```{r}
+```{r, fig.width= 10, fig.height=10, echo = FALSE}
 model <- cox.zph(coxph(Surv(dayslink, linkstatus) ~ group + alcohol + hs_grad + any_util + age, data=HELPdata))
-ggcoxzph(model)
+ggcoxzph(model, font.main = 10 , font.submain = 10 ,font.caption = 10 ,font.x= 8,font.y= 8,font.tickslab= 10,font.legend= 10)
 ```
 
 
-## Discussion
+### Discussion
 
 There are factors related to perception of personal health and healthcare that affect an individual's likelihood to link with primary healthcare. In the model above, we show five such factors, four of which are more general (not only applicable to this study).
 
@@ -349,10 +353,9 @@ More generally, our exploratory data analysis results are largely consistent wit
 
 When building our model, Variables that are significant tend to be binary variables with an even distribution of yes/no answers (or even more lob-sided towards yes (1) response). We suspect this is because more observations in each group directly translates to higher power, a lower absolute difference can result in lower (and potentially significant) p-values.
 
+\newpage
 
-## References
-
-*Blib
+### References
 
 
 
