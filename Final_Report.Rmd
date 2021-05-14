@@ -315,6 +315,16 @@ cox.zph(coxph(Surv(dayslink, linkstatus) ~ group + alcohol + hs_grad + any_util 
 For our model, the Cox PH assumptions hold as none of the p-values for variables (other than group/treatment) has p-value below $\alpha = 0.05$. The global p-value is also above $\alpha = 0.05$. We suspect that the p-value for group variable is low despite having a nice KM curve because there may be other variables and/or interaction with other variables we did not account for in our model.
 
 **Schoenfeld residuals Plots**
+Schoenfeld residuals are defined the the Cox proportional hazard model in order to verify the proportional hazards assumption of the cox ph model. Schoenfeld showed in (reference paper) that if the survival data follows the proportional hazards assumption, then the Schoenfeld residuals are uncorrelated with each other.  This is a useful and easy way to verify the assumption of the cox ph model, by calculating the Schoenfeld residuals, plotting a residual plot, and observing the plot for no correlation.
+
+In order to understand the calculations of the Schoenfeld residuals, we observe residuals used in linear regression.  Residuals are calculated by seeing how far the actual value is the from the predicted value, where the $y$ predicted value is calculated from a given $x$, explanatory variable.  Schoenfeld residuals are calculated in the opposite way, where we fixed time (the response variable in the cox ph model) in order to predict the explanatory variables.  Then, we subtract the real value from the predicted value and that becomes our Schoenfeld residuals for a time $T$. 
+
+We can then plot the Schoenfeld residuals for our model, where there is one plot for each of the predictor variables in the model.  We observe that the Schoenfeld residuals are not correlated, which means that we have statisfied the proportional hazards assumption for our cox ph model, which is the same result as the methods used to check the proportional hazrds assumption above.
+
+```{r}
+model <- cox.zph(coxph(Surv(dayslink, linkstatus) ~ group + alcohol + hs_grad + any_util + age, data=HELPdata))
+ggcoxzph(model)
+```
 
 
 ## Discussion
