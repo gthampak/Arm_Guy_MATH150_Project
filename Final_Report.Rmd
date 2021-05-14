@@ -34,17 +34,17 @@ Connecting with medical care is a choice. Many different factors could be involv
 
 There have been many studies and surveys which try to gauge the accuracy of an individual personal health perception and their views towards healthcare.  We attempt to widen the scope of personal perception of general health to investigate factors which could influence an individual’s view and opinions on their own health as well as primary healthcare.  Better understanding the influences on one's decision to connect with medical care can help focus efforts in specific sectors to give care to people who require care but don't know it themselves.
 
-There are many factors that could lead to differences in health perception. A study shows that people with higher education better assess their health status (more consistent with medical professionals) (Souto et al.). Additionally, a study shows that men and women do not percieve their health differently, but have different views on what constitutes a hleathy lifestyle (Mayo Clinic). It has also been shown that there are higher correlations between overall health and abstract health-related variables such as feelings of general health, pain, and worry than for concrete and observable variables, such as “bed days” and activity limitations (Leite et al.). Furthermore, substance users, specifically alcohol, tend to underestimate the negative effect of alcohol consumption on health and its contribution to injuries ((Sanchez-Ramirez et al.)).
+There are many factors that could lead to differences in health perception. A study shows that people with higher education better assess their health status (more consistent with medical professionals) (Souto et al.). Additionally, a study shows that men and women do not perceive their health differently, but have different views on what constitutes a healthy lifestyle (Mayo Clinic). It has also been shown that there are higher correlations between overall health and abstract health-related variables such as feelings of general health, pain, and worry than for concrete and observable variables, such as “bed days” and activity limitations (Leite et al.). Furthermore, substance users, specifically alcohol, tend to underestimate the negative effect of alcohol consumption on health and its contribution to injuries ((Sanchez-Ramirez et al.)).
 
-As described, there has been many studies on variables that affect health perception and self-evaluation. Although many previous literature explore factors which could impact perception of health, there haven’t been many who investigate the relationship of these factors with health care perception. A study by Samet et al. explores alcohol dependency as a factor that affects linkage to primary healthcare as a secondary variable, with the primary independent variable being treatment groups to encourage linking with primary healthcare.The study concluded that the treatment was similarly effective for subjects with alcohol and illicit drug problems.
+As described, there has been many studies on variables that affect health perception and self-evaluation. Although many previous literatures explore factors which could impact perception of health, there haven’t been many who investigate the relationship of these factors with health care perception. A study by Samet et al. explores alcohol dependency as a factor that affects linkage to primary health care as a secondary variable, with the primary independent variable being treatment groups to encourage linking with primary health care. The study concluded that the treatment was similarly effective for subjects with alcohol and illicit drug problems.
 
-We hypothesize that if factors affect perception of health, they will also have an effect of the individuals willingness to seek medical treatment. If you perceived yourself as healthy, the time to link with primary healthcare will be longer than those of percieve their health to be poor.
+We hypothesize that if factors affect perception of health, they will also have an effect of the individuals willingness to seek medical treatment. If you perceived yourself as healthy, the time to link with primary healthcare will be longer than those of perceive their health to be poor.
 
 We investigate significant factors of perception of personal health, to find if they are significant in predicting the time to link with primary healthcare. We begin by identifying factors which affect personal health perception, such as age and education.  Using a coxph model, we find significant factors in predicting times to link to primary healthcare.
 
 **Aim/Hypothesis**
 
-Our primary goal was to assess how personal perception of someone's health and their perception of healthcare affects the effectiveness of  novel multi-disciplinary clinic for linking patients in a residential detoxification program to primary medical care.
+Our primary goal was to assess how personal perception of someone's health and their perception of health care affects the effectiveness of novel multi-disciplinary clinic for linking patients in a residential detoxification program to primary medical care.
 
 ## Methods
 
@@ -91,7 +91,7 @@ First, we looked at variables that are related to health and health perception a
 
 * S1A At interview pt obviously depressed/withdrawn (0=No, 1=Yes)
 * S1B at interview pt obviously hostile (0=No, 1=Yes)
-* S1C At interview patientt obviously anxious/nervous (0=No, 1
+* S1C At interview patient obviously anxious/nervous (0=No, 1
 
 **Demographics and Education-related variables**
 
@@ -101,13 +101,7 @@ First, we looked at variables that are related to health and health perception a
 
 **Model Building**
 
-The functions we used for our primary data analyses are coxph(Surv()) to test for significance of Hazard Ratio coefficients and survfit(Sruv()) to plot survival curves. First we put all the variables above into a single model and removed the ones with highest significance one at a time. We also ran models with variables from a single category (above), and removed variables with highest signifiance. We did this to prevent putting highly correlated variables from the same category into the main model. We also tried looking for interaction between variables,  but none were significant.
-
-(make sure replicable)
-
-Explanation of variables we explored, why we explored them (in relation to our mainhypothsis/primary aim)
-
-Categorize variables explored (sf scores??)
+The functions we used for our primary data analyses are coxph(Surv()) to test for significance of Hazard Ratio coefficients and survfit(Sruv()) to plot survival curves. First we put all the variables above into a single model and removed the ones with highest significance one at a time. We also ran models with variables from a single category (above), and removed variables with highest significance. We did this to prevent putting highly correlated variables from the same category into the main model. We also tried looking for interaction between variables, but none were significant.
 
 ## Results (Model goes here!)
 
@@ -176,7 +170,7 @@ health_pct %>%
 
 ```
 
-Next, we looked for patterns between perception of mental health and general health. This visualisation is an effort to answer the question, do individuals incorporate their mental health to how they rate their general health. It seems that the majority of people who think their general health is bad also are suffering from poor mental health, which means that mental health is also considered in overall general health.
+Next, we looked for patterns between perception of mental health and general health. This visualization is an effort to answer the question, do individuals incorporate their mental health to how they rate their general health. It seems that the majority of people who think their general health is bad also are suffering from poor mental health, which means that mental health is also considered in overall general health.
 
 ```{r, echo = FALSE}
 mental <- matrix(table(HELPdata$f1f, HELPdata$b11d), ncol=5, nrow=4)
@@ -209,7 +203,7 @@ With that, we wanted to know whether high school graduates and non-high school g
 t.test(d5_rec~hs_grad, data = HELPdata)
 ```
 
-Another factor we thought could potentially affect patients view on the importance of medical treatment are those who use substances. We chose to do a t-test to see whether the proportion of people who view medical treatment as important is different between patients who have alcohol as their primary substance and those who do not. The p-value for this t-test is 0.03, which is a significant difference and we reject the null hypothesis. The test shows that the patients with alcohol as their primary substance is more liely to view medical treatment as important.
+Another factor we thought could potentially affect patients view on the importance of medical treatment are those who use substances. We chose to do a t-test to see whether the proportion of people who view medical treatment as important is different between patients who have alcohol as their primary substance and those who do not. The p-value for this t-test is 0.03, which is a significant difference and we reject the null hypothesis. The test shows that the patients with alcohol as their primary substance is more likely to view medical treatment as important.
 
 ```{r, echo = FALSE}
 alc_medical <- HELPdata %>% select(alcohol, d5_rec)
@@ -231,7 +225,7 @@ alc_pct %>%
 t.test(d5_rec~alcohol, data = HELPdata)
 ```
 
-We also wanted to see whether the proprotion of high school graduates and non-high school graduates who view medical treatment as important is the same. According to the t-test below, the difference in proportion between the two groups is not significant.
+We also wanted to see whether the proportion of high school graduates and non-high school graduates who view medical treatment as important is the same. According to the t-test below, the difference in proportion between the two groups is not significant.
 
 ```{r, echo=FALSE}
 t.test(d5_rec~hs_grad, data = HELPdata)
@@ -265,13 +259,13 @@ Our final model includes the following variables:
 * any_util
 * age
 
-From this coxph model, `group`'s coefficient estimate is 1.73914222 which means that patients in treatment group 1 are $e^{1.73914222} = 5.692458$ times as likely to recieve primary care at any given time that patients from treatment group 0. p-value for this coefficient is 1.621803e-14, which means we reject the null hypothesis that treatment group has no effect on 'risk' of seeking primary healthcare (with all else constant).
+From this coxph model, `group`'s coefficient estimate is 1.73914222 which means that patients in treatment group 1 are $e^{1.73914222} = 5.692458$ times as likely to receive primary care at any given time that patients from treatment group 0. p-value for this coefficient is 1.621803e-14, which means we reject the null hypothesis that treatment group has no effect on 'risk' of seeking primary healthcare (with all else constant).
 
-`alcohol`'s coefficient estimate is 0.49420991 which means that patients with alcohol as their primary substance are $e^{0.49420991} = 1.639203$ times as likely to recieve primary care at any given time that patients who do not have alcohol as their primary substance. p-value for this coefficient is 1.527822e-02, which means we reject the null hypothesis that alchol as primary substance does not correlate with 'risk' of seeking primary healthcare (with all else constant).
+`alcohol`'s coefficient estimate is 0.49420991 which means that patients with alcohol as their primary substance are $e^{0.49420991} = 1.639203$ times as likely to receive primary care at any given time that patients who do not have alcohol as their primary substance. p-value for this coefficient is 1.527822e-02, which means we reject the null hypothesis that alcohol as primary substance does not correlate with 'risk' of seeking primary healthcare (with all else constant).
 
-`hs_grad`'s coefficient estimate is -0.54287790 which means that patients with who are high school graduates are $e^{-0.54287790} = 0.5810736$ times as likely to recieve primary care at any given time that patients who are not high school graduates. p-value for this coefficient is 3.189917e-03, which means we reject the null hypothesis that high school graduation does not correlate with 'risk' of seeking primary healthcare (with all else constant).
+`hs_grad`'s coefficient estimate is -0.54287790 which means that patients with who are high school graduates are $e^{-0.54287790} = 0.5810736$ times as likely to receive primary care at any given time that patients who are not high school graduates. p-value for this coefficient is 3.189917e-03, which means we reject the null hypothesis that high school graduation does not correlate with 'risk' of seeking primary healthcare (with all else constant).
 
-`any_util`'s coefficient estimate is -0.40873422 which means that patients with recent health utilization are $e^{-0.40873422} = 0.6644908$ times as likely to recieve primary care at any given time that patients who have no recent health utilization. p-value for this coefficient is 4.755411e-02, which means we reject the null hypothesis that recent health utilization does not correlate with 'risk' of seeking primary healthcare (with all else constant).
+`any_util`'s coefficient estimate is -0.40873422 which means that patients with recent health utilization are $e^{-0.40873422} = 0.6644908$ times as likely to receive primary care at any given time that patients who have no recent health utilization. p-value for this coefficient is 4.755411e-02, which means we reject the null hypothesis that recent health utilization does not correlate with 'risk' of seeking primary healthcare (with all else constant).
 
 `age`'s coefficient estimate is 0.02386218 which means that a one year increase in age corresponds to a $e^{0.02386218} = 1.024149$ multiplicative factor increase in 'risk' to link with primary care at any given time. p-value for this coefficient is 4.548318e-02
 , which means we reject the null hypothesis that age does not correlate with 'risk' of seeking primary healthcare (with all else constant).
@@ -319,11 +313,11 @@ cox.zph(coxph(Surv(dayslink, linkstatus) ~ group + alcohol + hs_grad + any_util 
 For our model, the Cox PH assumptions hold as none of the p-values for variables (other than group/treatment) has p-value below $\alpha = 0.05$. The global p-value is also above $\alpha = 0.05$. We suspect that the p-value for group variable is low despite having a nice KM curve because there may be other variables and/or interaction with other variables we did not account for in our model.
 
 **Schoenfeld residuals Plots**
-Schoenfeld residuals are defined the the Cox proportional hazard model in order to verify the proportional hazards assumption of the cox ph model. Schoenfeld showed in (reference paper) that if the survival data follows the proportional hazards assumption, then the Schoenfeld residuals are uncorrelated with each other.  This is a useful and easy way to verify the assumption of the cox ph model, by calculating the Schoenfeld residuals, plotting a residual plot, and observing the plot for no correlation.
+Schoenfeld residuals are defined the Cox proportional hazard model in order to verify the proportional hazards assumption of the cox ph model. Schoenfeld showed in (reference paper) that if the survival data follows the proportional hazards assumption, then the Schoenfeld residuals are uncorrelated with each other.  This is a useful and easy way to verify the assumption of the cox ph model, by calculating the Schoenfeld residuals, plotting a residual plot, and observing the plot for no correlation.
 
 In order to understand the calculations of the Schoenfeld residuals, we observe residuals used in linear regression.  Residuals are calculated by seeing how far the actual value is the from the predicted value, where the $y$ predicted value is calculated from a given $x$, explanatory variable.  Schoenfeld residuals are calculated in the opposite way, where we fixed time (the response variable in the cox ph model) in order to predict the explanatory variables. The process for calculating the predicted values requires all the observations that are at risk at time $T$.  Then, we calculate the expected value by summing across all the observations, multiplied by the probability that the event occurs using the $\beta$ coefficients from the cox ph model.  This expected value is then the value of the predicted variable at time $T$. Then, we subtract the real value from the predicted value and that becomes our Schoenfeld residuals at the given time $T$. 
 
-We can then plot the Schoenfeld residuals for our model, where there is one plot for each of the predictor variables in the model.  We observe that the Schoenfeld residuals are not correlated, which means that we have statisfied the proportional hazards assumption for our cox ph model, which is the same result as the methods used to check the proportional hazards assumption above.
+We can then plot the Schoenfeld residuals for our model, where there is one plot for each of the predictor variables in the model.  We observe that the Schoenfeld residuals are not correlated, which means that we have satisfied the proportional hazards assumption for our cox ph model, which is the same result as the methods used to check the proportional hazards assumption above.
 
 ```{r}
 model <- cox.zph(coxph(Surv(dayslink, linkstatus) ~ group + alcohol + hs_grad + any_util + age, data=HELPdata))
@@ -333,23 +327,23 @@ ggcoxzph(model)
 
 ## Discussion
 
-There are factors related to perception of personal health and healthcare that affect an inidividual's likelihood to link with primary healthcare. In the model above, we show five such factors, four of which are more general (not only applicable to this study).
+There are factors related to perception of personal health and healthcare that affect an individual's likelihood to link with primary healthcare. In the model above, we show five such factors, four of which are more general (not only applicable to this study).
 
-Our null hypothesis is that factors affecting health perception and perception on health care are unrelated to the likelihood of a person linking with primary heatlchare at any given time, with all else being constant. Therefore, with several significant variables, we reject the null hypothesis and conclude varaibles affect hleath perception also correlates with likelihood of primary care linkage.
+Our null hypothesis is that factors affecting health perception and perception on health care are unrelated to the likelihood of a person linking with primary healthcare at any given time, with all else being constant. Therefore, with several significant variables, we reject the null hypothesis and conclude variables affect health perception also correlates with likelihood of primary care linkage.
 
 The significance of the `group` variable shows that treatment 1 increases the likelihood of a patient linking up with primary healthcare.
 
-The significance of the `alcohol` variable shows that people who ackowledge their high consumption and dependence on alcohol are like liklely (1.639203 times as likely) to link up to primary healthcare, especially if they have seeked help on their drinking problems before. We see from our exploratory data analysis that people with alcohol as their primary substance are more likely to view medical treatment as important (difference in proportion 95% CI: (-0.23130020, -0.01187097)).
+The significance of the `alcohol` variable shows that people who acknowledge their high consumption and dependence on alcohol are more liklely (1.639203 times as likely) to link up to primary healthcare, especially if they have seeked help on their drinking problems before. We see from our exploratory data analysis that people with alcohol as their primary substance are more likely to view medical treatment as important (difference in proportion 95% CI: (-0.23130020, -0.01187097)).
 
-The significance of the `hs_grad` variable shows that high school graduates are less willing to link up with primary healthcare (0.5810736 as likely) compared to non high school graduates. This may be because with minor problems, high graduates may be more confident in self-diagnosing and looking for solutions themselves before seeing the need to link up with primary healthcare. From our preliminary data analysis, we found that the proportion of high school graduates and non-high school graduates who view medical treatment as important are not significantly different (difference in proportion 95% CI= (-0.09854964, 0.13218183)). Thus, we believe that a possible reason high school graduates are less likely to link up with primary health care is because they are less likley to seek medical treatment under less severe circumstances/sickness.
+The significance of the `hs_grad` variable shows that high school graduates are less willing to link up with primary healthcare (0.5810736 as likely) compared to non high school graduates. This may be because with minor problems, high graduates may be more confident in self-diagnosing and looking for solutions themselves before seeing the need to link up with primary healthcare. From our preliminary data analysis, we found that the proportion of high school graduates and non-high school graduates who view medical treatment as important are not significantly different (difference in proportion 95% CI= (-0.09854964, 0.13218183)). Thus, we believe that a possible reason high school graduates are less likely to link up with primary health care is because they are less likely to seek medical treatment under less severe circumstances/sickness.
 
 We feel this is consistent with and related to the study by Souto et al. which shows that people with higher education better assess their health status more consistent with medical professionals. We can infer that people with higher education, are more confident with self-diagnosis and self-treatment and thus take longer, with all else constant, to link with primary care.
 
-The significance of the `any_util` variable in the model shows that patients who have recently recieved healthcare are less likely to link up with primary healthcare (0.6644908 times as likely). A possible reason is because healthcare is expensive and people may be less likely to visit primary healthcare successively, they may have had an unpleasant visit, a recent confirmation from a hleathcare professional may increase their confidence in regards to their health, so they are less likely to think linking with primary healthcare is necessary. 
+The significance of the `any_util` variable in the model shows that patients who have recently received healthcare are less likely to link up with primary healthcare (0.6644908 times as likely). A possible reason is because healthcare is expensive and people may be less likely to visit primary healthcare successively, they may have had an unpleasant visit, a recent confirmation from a healthcare professional may increase their confidence in regards to their health, so they are less likely to think linking with primary healthcare is necessary. 
 
 The significance of the `age` variable in the model shows that the older you are, the more likely you are to link up with primary healthcare (1.024149 as likely for every one year increase). This directly relates to our initial exploratory data analysis where we saw that people in older age groups have more negative outlooks on their future health, which could explain their increased likelihood of linking with primary healthcare (with all else constant).
 
-More generally, our exploratory data analysis results are largely consistent with previous studies discussed in the introduction. There is no significant difference in proportion of patients who view medical treatment as important for males and females (95% CI: (-0.18727736,  0.05958477)), which is consistent with the study by Mayo clinic on gender and health perception. However, there are significant differences between patients with and without alcohol as primary substances, similar to the study done by Samet et al. on primary care linkage and Sanchez-Ramirez et al. on health perceptions of alcohol dependents. One difference that we had was high school graudation as a factor in determining views on importance or medical treatment, as the proportion of those who view it as important is the same in both groups (95% CI: (-0.09854964, 0.13218183)). However, this is not an inconsistency with the study by Souto et al. on education and self-diagnosis assessment as view on medical treatment importance is diferent than self-diagnosis.
+More generally, our exploratory data analysis results are largely consistent with previous studies discussed in the introduction. There is no significant difference in proportion of patients who view medical treatment as important for males and females (95% CI: (-0.18727736,  0.05958477)), which is consistent with the study by Mayo clinic on gender and health perception. However, there are significant differences between patients with and without alcohol as primary substances, similar to the study done by Samet et al. on primary care linkage and Sanchez-Ramirez et al. on health perceptions of alcohol dependents. One difference that we had was high school graduation as a factor in determining views on importance or medical treatment, as the proportion of those who view it as important is the same in both groups (95% CI: (-0.09854964, 0.13218183)). However, this is not an inconsistency with the study by Souto et al. on education and self-diagnosis assessment as view on medical treatment importance is different than self-diagnosis.
 
 **Interesting Note**
 
