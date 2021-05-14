@@ -335,6 +335,8 @@ ggcoxzph(model)
 
 There are factors related to perception of personal health and healthcare that affect an inidividual's likelihood to link with primary healthcare. In the model above, we show five such factors, four of which are more general (not only applicable to this study).
 
+Our null hypothesis is that factors affecting health perception and perception on health care are unrelated to the likelihood of a person linking with primary heatlchare at any given time, with all else being constant. Therefore, with several significant variables, we reject the null hypothesis and conclude varaibles affect hleath perception also correlates with likelihood of primary care linkage.
+
 The significance of the `group` variable shows that treatment 1 increases the likelihood of a patient linking up with primary healthcare.
 
 The significance of the `alcohol` variable shows that people who ackowledge their high consumption and dependence on alcohol are like liklely (1.639203 times as likely) to link up to primary healthcare, especially if they have seeked help on their drinking problems before. We see from our exploratory data analysis that people with alcohol as their primary substance are more likely to view medical treatment as important (difference in proportion 95% CI: (-0.23130020, -0.01187097)).
@@ -352,10 +354,6 @@ More generally, our exploratory data analysis results are largely consistent wit
 **Interesting Note**
 
 When building our model, Variables that are significant tend to be binary variables with an even distribution of yes/no answers (or even more lob-sided towards yes (1) response). We suspect this is because more observations in each group directly translates to higher power, a lower absolute difference can result in lower (and potentially significant) p-values.
-
-**Concluding Statement**
-
-We reject the null hypothesis that factors affecting health perception and perception on healthcare are unrelated to the likelihood of a person linking with primary heatlchare at any given time, with all else being constant as shown by significant variables discussed and included in mode.
 
 
 ## Sources/References
