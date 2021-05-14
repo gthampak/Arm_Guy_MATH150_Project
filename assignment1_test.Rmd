@@ -16,6 +16,7 @@ library(survminer)
 library(readr)
 library(rms)
 library(CPE)
+library(reshape2)
 ```
 Heat map to show the relationship between health problems diagnosed by MD vs chronic substance use
 ```{r}
@@ -166,6 +167,18 @@ fig1 <- fig1 %>% layout(
       yaxis = list(title = "I felt depressed"))
 
 fig1
+
+rownames(mental) <- c("Rarely/never", "Some of the time", "Occas/moderately", "Most of the time")
+colnames(mental) <- c("Definitely true", "Mostly true", "Don't know", "Mostly false", "Definitely false")
+
+melted_mental <- melt(mental)
+
+head(melted_mental)
+
+ggplot(data=melted_mental, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile() + 
+  labs(x="I felt depressed", y="My health is excellent") + 
+  ggtitle("Relationship between Perception of mental health and general health")
 ```
 
 Now we investigate education as education may affect the individuals perception of health care, their knowledge of the health care system and their ability to self diagnose themselves.  We plot a quick histogram to see whether years of education correspond with the high school variable and it does.  12 years of formal education is when high school finishes, and this is the case here. 
