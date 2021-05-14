@@ -34,7 +34,9 @@ Connecting with medical care is a choice.  Many different factors could be invol
 
 There have been many studies and surveys which try to gauge the accuracy of an individual personal health perception and their views towards healthcare.  We attempt to widen the scope of personal perception of general health to investigate factors which could influence an individual’s view and opinions on their own health as well as primary healthcare.  Better understanding the influences on one's decision to connect with medical care can help focus efforts in specific sectors to give care to people who require care but don't know it themselves.
 
-We begin by identifying factors which affect personal health perception, such as age and education.  Using a coxph model, we find significant factors in predicting times to link to primary healthcare.  Since the factors are associated with primary healthcare linkage, we assume that they also affect the individual's perception of health. If you perceived yourself as healthy, the time to link with primary healthcare will be longer than those of percieve their health to be poor.  
+Although many previous literature explore factors which could impact perception of health, there haven’t been many who investigate the relationship of these factors with health care perception.  We hypothesise that if factors affect perception of health, they will also have an effect of the individuals willingness to seek medical treatment. If you perceived yourself as healthy, the time to link with primary healthcare will be longer than those of percieve their health to be poor. 
+
+We investigate significant factors of perception of personal health, to find if they are significant in predicting the time to link with primary healthcare. We begin by identifying factors which affect personal health perception, such as age and education.  Using a coxph model, we find significant factors in predicting times to link to primary healthcare.
 
 (move from general to specific)
 
