@@ -14,6 +14,7 @@ library(survival)
 library(survminer)
 library(readr)
 library(rms)
+library(CPE)
 ```
 Heat map to show the relationship between health problems diagnosed by MD vs chronic substance use
 ```{r}
@@ -229,9 +230,11 @@ HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ pf + rp, data=HELPdata)
 ggsurvplot(HELPdata_survfit, conf.type = "TRUE") + 
   ggtitle("KM-curve")
 
-coxph(Surv(dayslink, linkstatus) ~ group + alcohol + hs_grad + any_util + age, data=HELPdata) %>% tidy()
+fit <- coxph(Surv(dayslink, linkstatus) ~ group + alcohol + hs_grad + any_util + age, data=HELPdata)
 
 cph(Surv(dayslink, linkstatus) ~ group + alcohol + hs_grad + any_util + age, data=HELPdata)
+
+phcpe(fit)
 ```
 
 
