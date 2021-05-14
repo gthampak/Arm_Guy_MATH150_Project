@@ -6,7 +6,7 @@ output:
   pdf_document: default
   html_document:
     df_print: paged
-bibliography: references.bib
+bibliography: references1.bib
 nocite: "@*"
 ---
 
@@ -21,6 +21,7 @@ library(readr)
 library(mosaic)
 library(plotly)
 library(webshot)
+library(reshape2)
 webshot::install_phantomjs()
 ```
 
@@ -32,7 +33,7 @@ HELPdata <- read_csv(url(urlfile))
 
 ```
 
-#3# Introduction
+# Introduction
 
 Connecting with medical care is a choice. Many different factors could be involved when deciding whether or not to connect with medical care.  Perception of your own personal health influences your decision to connect with medical care for non-major medical emergencies.  Although we are able to do some basic self diagnosis with help of the internet, there is a high chance of a misdiagnosis given the various issues with access to useful and accurate medical information.  Since we do not deem it a necessity if our health is not in a critical condition, we may decide not to connect with medical care.  Apart from the personal health perceptions, there are also perceptions of health care system, which could include the ability to pay for health treatment.  Lastly, one may not be in the optimal mental space to decide whether or not to connect with medical care, which could be due to poor mental health or substance abuse.  
 
@@ -50,7 +51,7 @@ We investigate significant factors of perception of personal health, to find if 
 
 Our primary goal was to assess how personal perception of someone's health and their perception of health care affects the effectiveness of novel multi-disciplinary clinic for linking patients in a residential detoxification program to primary medical care.
 
-### Methods
+# Methods
 
 First, we looked at variables that are related to health and health perception and separated them into different categories.
 
@@ -107,7 +108,7 @@ First, we looked at variables that are related to health and health perception a
 
 The functions we used for our primary data analyses are coxph(Surv()) to test for significance of Hazard Ratio coefficients and survfit(Sruv()) to plot survival curves. First we put all the variables above into a single model and removed the ones with highest significance one at a time. We also ran models with variables from a single category (above), and removed variables with highest significance. We did this to prevent putting highly correlated variables from the same category into the main model. We also tried looking for interaction between variables, but none were significant.
 
-### Results
+# Results
 
 **Exploratory Data Analyses**
 
@@ -136,9 +137,8 @@ self_health_pct <- self_health %>% group_by(pain_score, good_health) %>%
 
 self_health_pct %>% 
   ggplot() + geom_bar(aes(x=pain_score, y=pct, fill=good_health), stat="identity") + 
-  labs(fill = "My health is excellent")
-
-
+  labs(fill = "My health is excellent") + 
+  ggtitle("Perception of Health According to Pain Score")
 ```
 
 Next, we were interested in the correlation between age and perception of future health. We hypothesis that the people of older age will more likely believe that their health will get worse.  This is mostly true as the percentage of people who believe their health will get worse increases as age increases, as shown below.
@@ -170,24 +170,25 @@ health_pct <- expected_health %>% group_by(age_group, expected_hel) %>%
 
 health_pct %>%
   ggplot() + geom_bar(aes(x=age_group, y=pct, fill=expected_hel), stat="identity") + 
-  labs(fill = "I expect my health to get worse")
-
+  labs(fill = "I expect my health to get worse") +
+  ggtitle("Perception of Future Health Based on Age")
 ```
 
 Next, we looked for patterns between perception of mental health and general health. This visualization is an effort to answer the question, do individuals incorporate their mental health to how they rate their general health. It seems that the majority of people who think their general health is bad also are suffering from poor mental health, which means that mental health is also considered in overall general health.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.height = 6, fig.width =8, fig.align='center'}
+
 mental <- matrix(table(HELPdata$f1f, HELPdata$b11d), ncol=5, nrow=4)
 
-fig1 <- plot_ly(x = c("Definitely true", "Mostly true", "Don't know", "Mostly false", "Definitely false"), y = c("Rarely/never", "Some of the time", "Occas/moderately", "Most of the time"),
-    z = mental, type = "heatmap")
+rownames(mental) <- c("Rarely/never", "Some of the time", "Occas/moderately", "Most of the time")
+colnames(mental) <- c("Definitely true", "Mostly true", "Don't know", "Mostly false", "Definitely false")
 
-fig1 <- fig1 %>% layout(
-    title = "Relationship Personal mental health perception and general health perception",
-      xaxis = list(title = "My health is excellent"),
-      yaxis = list(title = "I felt depressed"))
+melted_mental <- melt(mental)
 
-fig1
+ggplot(data=melted_mental, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile() + 
+  labs(x="I felt depressed", y="My health is excellent") + 
+  ggtitle("Relationship between Perception of mental health and general health")
 ```
 
 Now, we investigate variables associated with education as education may affect the individuals perception of health care, their knowledge of the health care system and their ability to self diagnose themselves. We plot a quick histogram to see whether years of education (a9) correspond with the high school variable (hs_grad) and it does. 12 years of formal education is when high school finishes, and this is the case here.
@@ -196,7 +197,8 @@ Here, we note that a lot of the patients in the study are high school graduates.
 
 ```{r, echo = FALSE}
 HELPdata %>%
-  ggplot() + geom_bar(aes(x=a9, fill=as.factor(hs_grad)))
+  ggplot() + geom_bar(aes(x=a9, fill=as.factor(hs_grad))) +
+  ggtitle("Proportion of HS Graduates By Years of Education")
 ```
 
 **T-tests**
@@ -223,8 +225,10 @@ alc_pct <- alc_pct %>% mutate(medical = case_when(
   d5_rec == 1 ~ "Yes",
   TRUE ~ "No"))
 alc_pct %>%
-  ggplot() + geom_bar(aes(x=alc, y=pct, fill=medical), stat="identity") + 
-  labs(fill = "is medical treament important?", x="1st/2nd drug of choice is alcohol")
+  ggplot() + geom_bar(aes(x=alc, y=pct, fill=medical), stat="identity") +
+  labs(fill = "is medical treament important?", x="1st/2nd drug of choice is alcohol") + 
+  ggtitle("Importance of Medical Treatment in Alcohol Dependents") +
+  theme(plot.title = element_text(size = 10))
 
 t.test(d5_rec~alcohol, data = HELPdata)
 ```
@@ -283,25 +287,29 @@ First, as a preliminary check, we can plot the associated KM curves for the vari
 ```{r}
 HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ group, data=HELPdata)
 
-ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE", font.main = 10) +
+  ggtitle("Linkage to Primary Care Probability by Treatment Group")
 ```
 
 ```{r}
 HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ alcohol, data=HELPdata)
 
-ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE", font.main = 10) +
+  labs(title = "Linkage to Primary Care Probability by Alcohol Use")
 ```
 
 ```{r}
 HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ hs_grad, data=HELPdata)
 
-ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE", font.main = 10) +
+  ggtitle("Linkage to Primary Care Probability by High School Graduation")
 ```
 
 ```{r}
 HELPdata_survfit <- survfit(Surv(dayslink, linkstatus) ~ any_util, data=HELPdata)
 
-ggsurvplot(HELPdata_survfit, conf.type = "TRUE")
+ggsurvplot(HELPdata_survfit, conf.type = "TRUE", font.main = 10) +
+  ggtitle("Linkage to Primary Care Probability by Recent Health Care Use")
 ```
 
 As shown in the above plots, the KM curves of observations in the two groups of binary variables in the model does not intersect, thus the assumption appear to hold. Additionally, each pair of curve seem to have the same shape.
@@ -329,7 +337,7 @@ ggcoxzph(model, font.main = 10 , font.submain = 10 ,font.caption = 10 ,font.x= 8
 ```
 
 
-### Discussion
+# Discussion
 
 There are factors related to perception of personal health and healthcare that affect an individual's likelihood to link with primary healthcare. In the model above, we show five such factors, four of which are more general (not only applicable to this study).
 
@@ -355,7 +363,7 @@ When building our model, Variables that are significant tend to be binary variab
 
 \newpage
 
-### References
+# References
 
 
 
